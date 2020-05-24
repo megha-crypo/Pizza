@@ -1,0 +1,259 @@
+{
+  "intents": [
+    {
+      "intent": "Large",
+      "examples": [
+        {
+          "text": "Large"
+        },
+        {
+          "text": "Large Pizza"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Top",
+      "examples": [
+        {
+          "text": "Veg Topping"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Veg",
+      "examples": [
+        {
+          "text": "Veg"
+        },
+        {
+          "text": "Veg Pizza"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Pizza",
+      "examples": [
+        {
+          "text": "Order Pizza"
+        },
+        {
+          "text": "Pizza"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Hungry",
+      "examples": [
+        {
+          "text": "I am Hungry"
+        },
+        {
+          "text": "Hungry"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [
+    {
+      "entity": "Size",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Medium",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Large",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Small",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "Topping1",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Veg Topping",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Non Veg Topping",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "top",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Ok it is coming"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1590197518979",
+      "conditions": "@Topping1:(Veg Topping)",
+      "dialog_node": "node_4_1590197569136"
+    },
+    {
+      "type": "standard",
+      "title": "Pizza",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "What Size of Pizza"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_7_1590197338708",
+      "conditions": "#Pizza",
+      "dialog_node": "node_4_1590197399034"
+    },
+    {
+      "type": "standard",
+      "title": "Size",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Veg Topping or Non Veg Topping"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_4_1590197399034",
+      "conditions": "@Size:Large",
+      "dialog_node": "node_10_1590197518979"
+    },
+    {
+      "type": "standard",
+      "title": "I am Hunry",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "What you want to order"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "Welcome",
+      "conditions": "#Hungry",
+      "dialog_node": "node_7_1590197338708"
+    },
+    {
+      "type": "standard",
+      "title": "Anything else",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I didn't understand. You can try rephrasing."
+              },
+              {
+                "text": "Can you reword your statement? I'm not understanding."
+              },
+              {
+                "text": "I didn't get your meaning."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "Anything else",
+      "previous_sibling": "Welcome",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "standard",
+      "title": "Welcome",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hello. How can I help you?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "welcome",
+      "dialog_node": "Welcome"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "off_topic": {
+      "enabled": true
+    },
+    "disambiguation": {
+      "prompt": "Did you mean:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "None of the above"
+    },
+    "system_entities": {
+      "enabled": true
+    },
+    "human_agent_assist": {
+      "prompt": "Did you mean:"
+    },
+    "spelling_auto_correct": true
+  },
+  "learning_opt_out": false,
+  "name": "PDelivery",
+  "language": "en",
+  "description": ""
+}
